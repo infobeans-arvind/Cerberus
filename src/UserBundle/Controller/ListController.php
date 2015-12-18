@@ -70,7 +70,8 @@ class ListController extends Controller
             );
         } else {
             $originalPassword = $user->getPassword();
-            $user->setPassword($originalPassword);                
+            $user->setPassword($originalPassword);
+            $user->setUpdatedOn(new \DateTime());
             $form = $this->createFormBuilder($user)                
                 ->add('firstName', 'text', ['label' => 'First Name'])
                 ->add('lastName', 'text', ['label' => 'Last Name'])
