@@ -120,9 +120,9 @@ class User
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="credientials_expired", type="datetime", nullable=true)
+     * @ORM\Column(name="expired_at", type="datetime", nullable=true)
      */
-    private $credientialsExpired;
+    private $expiredAt;
 
     /**
      * @var \DateTime
@@ -495,5 +495,29 @@ class User
     public function getLastLogin()
     {
         return $this->lastLogin;
+    }
+
+    /**
+     * Set expiredAt
+     *
+     * @param \DateTime $lastLogin
+     *
+     * @return User
+     */
+    public function setExpiredAt($expiredAt)
+    {
+        $this->expiredAt = $expiredAt;
+
+        return $this;
+    }
+
+    /**
+     * Get expiredAt
+     *
+     * @return \DateTime
+     */
+    public function getExpiredAt()
+    {
+        return $this->expiredAt;
     }
 }

@@ -135,4 +135,30 @@ class ListController extends Controller
             return $this->redirect($this->generateUrl('users'), 301);
         }
     }
+
+    /**
+    * @Route("admin/users/softdelete/{id}", requirements={"id" = "\d+"}, defaults={"id" = 0})
+    * @Template()
+    */
+    public function softdeleteAction($id)
+    {
+        if ($id == 0){ // no user id entered
+            return $this->redirect($this->generateUrl('users'), 301);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('UserBundle:User')->find($id);
+
+        if (!$user) { // no user in the system
+            throw $this->createNotFoundException(
+                'No user found for id '.$id
+            );
+        } else {
+            $originalPassword = $user->getPassword();
+            $user->setPassword($originalPassword);            
+            $user->setStatusId(0);
+            $em->flush();
+            return $this->redirect($this->generateUrl('users'), 301);
+        }
+    }
 }

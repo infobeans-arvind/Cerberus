@@ -54,13 +54,13 @@
                                         </div>
                                     </div>                                
                                 </div>
-                                <div class="col-md-12">
+                                {#<div class="col-md-12">
                                     <div class="col-lg-5">
                                         <div class="form-group">
                                             {{ form_widget(form.roles, { 'attr': {'class': 'form-control', 'placeholder':'Role'} }) }}
                                         </div>
                                     </div>                                
-                                </div>     
+                                </div>#}
                             </div>                          
                         </div>
                         {{ form_row(form._token) }}
@@ -70,23 +70,4 @@
             </div>
         </div>            
     </div>
-    {#
-<form class="form-signin" name='register_form' id='register_form' method='post' action='{{path('register')}}'>
-{{ form_errors(form) }}
-{{ form_errors(form.firstName, {'attr': {'class': 'form-control'}}) }}
-{{ form_widget(form.firstName, {'attr': {'class': 'form-control', 'placeholder':'First Name'}}) }}<br>
-{{ form_errors(form.lastName, {'attr': {'class': 'form-control'}}) }}
-{{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'placeholder':'Last Name'}}) }}<br>
-{{ form_errors(form.email, {'attr': {'class': 'form-control'}}) }}
-{{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder':'Email'}}) }}<br>
-{{ form_errors(form.password.first, {'attr': {'class': 'form-control'}}) }}
-{{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'placeholder':'Password'}}) }}<br>
-{{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'placeholder':'Confirm Password'}}) }}<br>
-{{ form_errors(form.recordId, {'attr': {'class': 'form-control'}}) }}
-{{ form_widget(form.recordId, {'attr': {'class': 'form-control', 'placeholder':'Record ID'}}) }}<br>
-
-{{ form_widget(form.roles, { 'attr': {'class': 'form-control', 'placeholder':'Role'} }) }}<br>
-{{ form_row(form._token) }}
-<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-</form>#}
 {% endblock %}

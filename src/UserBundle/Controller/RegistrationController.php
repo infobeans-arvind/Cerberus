@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 class RegistrationController extends Controller
 {
 
+    private $defaultRole = 'ROLE_ADMIN';
+
     /**
      * @Route("/admin/register", name="register")
      */
@@ -30,8 +32,9 @@ class RegistrationController extends Controller
 
             $user->setCreatedOn(new \DateTime());
             $user->setUpdatedOn(new \DateTime());
+            $user->setExpiredAt(new \DateTime());
             $user->setlocked(new \DateTime());
-            $user->setRoles($user->getRoles());
+            $user->setRoles($this->defaultRole);
             $user->setEnabled(true);
 
             $password = $user->getPassword();
@@ -48,7 +51,7 @@ class RegistrationController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $url = $this->generateUrl('login');
+            $url = $this->generateUrl('users');
             return $this->redirect($url);
         }
 
