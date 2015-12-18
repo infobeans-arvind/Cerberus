@@ -53,10 +53,10 @@ class User
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Regex(
-     *      pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/",
-     *      message="Use 1 upper case letter, 1 lower case letter, and 1 number"
+     * @Assert\NotBlank(message="Password may not be empty")
+     * @Assert\Regex(     
+     *      pattern="/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/",
+     *      message="Use atleast 1 letter, and 1 number"
      * )
      */
     private $password;
@@ -437,7 +437,7 @@ class User
         $this->enabled = $enabled;
 
         return $this;
-    }
+    }    
 
     /**
      * Get enabled
@@ -471,5 +471,29 @@ class User
     public function getCreatedBy()
     {
         return $this->createdBy;
+    }
+
+    /**
+     * Set lastLogin
+     *
+     * @param \DateTime $lastLogin
+     *
+     * @return User
+     */
+    public function setLastLogin($lastLogin)
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    /**
+     * Get lastLogin
+     *
+     * @return \DateTime
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
     }
 }
