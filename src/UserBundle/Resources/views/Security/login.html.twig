@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Cerberus Login</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% if error %}
+                            <div class="error margin-bottom10">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                        <form action="{{ path("login_check") }}" method="post">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="email" name="_email" value="" placeholder="Email" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Password" type="password" id="password" name="_password" >
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <input class="btn btn-lg btn-success btn-block" type="submit" id="_submit" name="_submit" value="Login" />
+                                {#<div class="form-group forgot-password"><a href="{{ path('fos_user_resetting_request') }}">Forgot Password?</a></div>}#}
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

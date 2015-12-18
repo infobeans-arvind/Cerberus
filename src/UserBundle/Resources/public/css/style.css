@@ -1,0 +1,15 @@
+.margin-bottom10{
+    margin-bottom: 10px;
+}
+.error{
+    color: red;
+}
+.captcha_reload{
+    margin-left:1em;
+}
+#app_user_registration_captcha{
+    margin-top:1em
+}
+.forgot-password{
+    margin-top: 1em;
+}
