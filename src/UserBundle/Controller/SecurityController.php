@@ -15,41 +15,32 @@ class SecurityController extends Controller
      * @Route("/admin/", name="login")
      * @Template()
      */
-    public function loginAction()
+    public function loginAction(Request $request)
     {
-        $authenticationUtils = $this->get('security.authentication_utils');
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return array(
-                'error' => $error,
-                'last_username' => $lastUsername,
-                );
-    }
-
-    /**
-     * @Route("/admin/login_check", name="login_check")
-     */
-    public function loginCheckAction(Request $request)
-    {
-        $email    = $request->request->get('_email');
-        $password = $request->request->get('_password');
-
-
-        $em = $this->getDoctrine()->getManager();
-        $userData = $em->getRepository('UserBundle:User')->findOneByEmail($email);
-        $result   = $this->validateLogin($password, $userData->getPassword(),
-            $userData->getSalt());
-        if ($result) {
-            echo "Login Success!!";
-            die;
-        } else {
-             throw new \Exception('Invalid Credentials!');
+        $error = "";
+        if ($this->getRequest()->isMethod('POST')) {
+            $email    = $request->request->get('_email');
+            $password = $request->request->get('_password');
+            if (!empty($email && $password)) {
+                $em       = $this->getDoctrine()->getManager();
+                $userData = $em->getRepository('UserBundle:User')->findOneByEmail($email);
+                if (isset($userData)) {
+                    $result = $this->validateLogin($password,
+                        $userData->getPassword(), $userData->getSalt());
+                    if (isset($result)) {
+                        $url = $this->generateUrl('users');
+                        return $this->redirect($url);
+                    } else {
+                        $error = "Invalid Email or Password!";
+                    }
+                } else {
+                    $error = "Invalid Email or Password!";
+                }
+            } else {
+                $error = "Email or Password should not be blank!";
+            }
         }
+        return array('error' => $error);
     }
 
     function validateLogin($pass, $hashed_pass, $salt, $hash_method = 'sha1')
